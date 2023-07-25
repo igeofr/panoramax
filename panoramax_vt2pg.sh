@@ -131,6 +131,7 @@ echo 'Import dans PG'
         -where "account_id='$V_ORGANISATION'" \
         -dialect SQLITE \
         --config OGR_TRUNCATE YES \
+        --config PG_USE_COPY YES \
         --debug ON \
         --config CPL_LOG './'$REPER_LOGS'/'$DATE_YMD'_panoramax_vt_sequences.log'
 # elif [ "$TYPE" = "pictures" ]
@@ -145,6 +146,7 @@ echo 'Import dans PG'
         -where "account_id='$V_ORGANISATION'" \
         -dialect SQLITE \
         --config OGR_TRUNCATE YES \
+        --config PG_USE_COPY YES \
         --debug ON \
         --config CPL_LOG './'$REPER_LOGS'/'$DATE_YMD'_panoramax_vt_pictures.log'
 # fi
