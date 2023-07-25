@@ -90,7 +90,7 @@ for X in $(seq $XMIN $XMAX);do
       PBF_FILE=${Z}'_'${X}'_'${Y}'.pbf'
 
       #-------------------------------------------------------------------------------
-      URL="https://panoramax.ign.fr/api/map/$Z/$X/$Y.pbf"
+      URL="$V_URL/$Z/$X/$Y.pbf"
       #echo "https://panoramax.ign.fr/api/map/$Z/$X/$Y.pbf"
 
       mkdir $REPER'/tuiles/'${DATE_YMD}
