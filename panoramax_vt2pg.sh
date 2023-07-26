@@ -5,35 +5,6 @@
 # CC BY-SA 4.0 : https://creativecommons.org/licenses/by-sa/4.0/deed.fr
 #-------------------------------------------------------------------------------
 
-# RECUPERATION DU TYPE DE DATA A INTEGRER
-# if [ "$#" -ge 1 ]; then
-#   if [ "$1" = "sequences" ] || [ "$1" = "pictures" ];
-#   then
-#     TYPE=$1
-#     echo $TYPE
-#   else
-#   IFS= read -p "Type : " S_TYPE
-#     if [ "$S_TYPE" = "sequences" ] || [ "$S_TYPE" = "pictures" ];
-#     then
-#       export TYPE=$S_TYPE
-#       echo $TYPE
-#     else
-#       echo "Erreur de paramètre"
-#       exit 0
-#     fi
-#   fi
-# else
-#   IFS= read -p "Type : " S_TYPE
-#   if [ "$S_TYPE" = "sequences" ] || [ "$S_TYPE" = "pictures" ] ;
-#   then
-#     export TYPE=$S_TYPE
-#     echo $TYPE
-#   else
-#     echo "Erreur de paramètre"
-#     exit 0
-#   fi
-# fi
-
 # VARIABLES DATES
 export DATE_YM=$(date "+%Y%m")
 export DATE_YMD=$(date "+%Y%m%d")
@@ -91,7 +62,6 @@ for X in $(seq $XMIN $XMAX);do
 
       #-------------------------------------------------------------------------------
       URL="$V_URL/$Z/$X/$Y.pbf"
-      #echo "https://panoramax.ign.fr/api/map/$Z/$X/$Y.pbf"
 
       mkdir $REPER'/tuiles/'${DATE_YMD}
       mkdir $REPER'/tuiles/'${DATE_YMD}'/'${Z}
@@ -120,7 +90,6 @@ done
 echo 'Import dans PG'
 
 # IMPORT PG
-# if  [ "$TYPE" = "sequences" ]; then
     ogr2ogr \
         -append \
         -f "PostgreSQL" PG:"service='$C_SERVICE' schemas='$C_SCHEMA'" \
@@ -134,8 +103,7 @@ echo 'Import dans PG'
         --config PG_USE_COPY YES \
         --debug ON \
         --config CPL_LOG './'$REPER_LOGS'/'$DATE_YMD'_panoramax_vt_sequences.log'
-# elif [ "$TYPE" = "pictures" ]
-# then
+
     ogr2ogr \
         -append \
         -f "PostgreSQL" PG:"service='$C_SERVICE' schemas='$C_SCHEMA'" \
@@ -149,5 +117,4 @@ echo 'Import dans PG'
         --config PG_USE_COPY YES \
         --debug ON \
         --config CPL_LOG './'$REPER_LOGS'/'$DATE_YMD'_panoramax_vt_pictures.log'
-# fi
 echo 'Fin du traitement des données de Panoramax'
